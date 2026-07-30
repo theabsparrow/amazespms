@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Wind,
   Zap,
@@ -10,15 +11,12 @@ import {
   Building2,
   CheckCircle2,
   Search,
-  Filter,
-  PhoneCall,
-  Clock,
   ArrowRight,
-  ChevronRight,
-  Flame,
-  Wrench,
-  ShieldAlert,
   Layers,
+  Award,
+  Clock,
+  PhoneCall,
+  Sliders,
 } from "lucide-react";
 import ServiceModal from "@/component/shared/ServiceModal";
 
@@ -30,16 +28,16 @@ const servicesList = [
     title: "HVAC & Chillers Maintenance",
     category: "Hard Services (MEP)",
     icon: Wind,
-    color: "text-blue-400",
-    bgColor: "bg-blue-500/10",
-    borderColor: "border-blue-500/30",
+    color: "text-emerald-400",
+    bgColor: "bg-emerald-500/10",
+    borderColor: "border-emerald-500/30",
     description: "Complete HVAC lifecycle management including water chillers, air handling units (AHU), fan coil units (FCU), duct cleaning, and IoT thermostatic optimization.",
     sla: "< 15 Mins Emergency",
     features: [
       "Chilled Water Pump Servicing",
       "Ductwork Hygiene & Sanitization",
       "VFD & Compressor Overhauls",
-      "Refrigerant Charging & Leak Audit",
+      "Refrigerant Leak Diagnostics & Audit",
     ],
   },
   {
@@ -61,12 +59,12 @@ const servicesList = [
   },
   {
     id: "plumbing",
-    title: "Plumbing & Drainage Engineering",
+    title: "Plumbing & Water Engineering",
     category: "Hard Services (MEP)",
     icon: Droplets,
-    color: "text-cyan-400",
-    bgColor: "bg-cyan-500/10",
-    borderColor: "border-cyan-500/30",
+    color: "text-teal-400",
+    bgColor: "bg-teal-500/10",
+    borderColor: "border-teal-500/30",
     description: "Pumping station servicing, backflow prevention, water storage tank disinfection, acoustic pipe leak detection, and high-pressure sewer jetting.",
     sla: "< 30 Mins Dispatch",
     features: [
@@ -85,7 +83,7 @@ const servicesList = [
     bgColor: "bg-emerald-500/10",
     borderColor: "border-emerald-500/30",
     description: "Daily office janitorial staffing, high-rise window facade rope cleaning, marble honing and crystallization, carpet shampooing, and pest control.",
-    sla: "Scheduled / Daily",
+    sla: "Daily / Scheduled",
     features: [
       "Rope Access High-Rise Window Cleaning",
       "Hospital-Grade Disinfection & Sanitization",
@@ -95,12 +93,12 @@ const servicesList = [
   },
   {
     id: "security",
-    title: "CCTV & Security Access Control",
+    title: "CCTV & Access Control",
     category: "Security & Tech",
     icon: ShieldCheck,
-    color: "text-purple-400",
-    bgColor: "bg-purple-500/10",
-    borderColor: "border-purple-500/30",
+    color: "text-teal-400",
+    bgColor: "bg-teal-500/10",
+    borderColor: "border-teal-500/30",
     description: "Installation and maintenance of IP CCTV surveillance, facial recognition barriers, turnstiles, fire alarm panels, and automated sprinkler networks.",
     sla: "< 20 Mins Dispatch",
     features: [
@@ -115,9 +113,9 @@ const servicesList = [
     title: "Civil Works & Structural Repairs",
     category: "Civil & Fit-Out",
     icon: Building2,
-    color: "text-rose-400",
-    bgColor: "bg-rose-500/10",
-    borderColor: "border-rose-500/30",
+    color: "text-emerald-300",
+    bgColor: "bg-emerald-500/10",
+    borderColor: "border-emerald-500/30",
     description: "Masonry repair, waterproof membrane installation, interior painting, drywall partitioning, epoxy floor coating, and joinery repairs.",
     sla: "< 24 Hours",
     features: [
@@ -133,7 +131,6 @@ const amcPlans = [
   {
     name: "Silver Maintenance",
     badge: "Essential",
-    price: "Custom Base",
     popular: false,
     description: "Ideal for small to medium residential complexes and standard commercial offices.",
     features: [
@@ -147,7 +144,6 @@ const amcPlans = [
   {
     name: "Gold Enterprise",
     badge: "Most Popular",
-    price: "Custom Full",
     popular: true,
     description: "Comprehensive coverage for commercial towers, shopping malls, and mixed-use developments.",
     features: [
@@ -162,7 +158,6 @@ const amcPlans = [
   {
     name: "Platinum Premier",
     badge: "Tailored Facility",
-    price: "Custom Enterprise",
     popular: false,
     description: "Full facility management taking over 100% hard & soft operations with zero downtime SLA.",
     features: [
@@ -194,160 +189,209 @@ export default function Services() {
   };
 
   return (
-    <div className="py-12 space-y-20">
-      {/* Header Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">
-          <Layers className="w-3.5 h-3.5" />
-          <span>Complete Facility & Property Service Catalog</span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white">
-          Our Integrated <span className="text-gradient">Service Portfolio</span>
-        </h1>
-        <p className="text-slate-400 text-sm sm:text-base max-w-3xl mx-auto">
-          From preventive mechanical contracts to emergency dispatch and soft sanitation, Amaze PMS provides custom facility management solutions engineered for uptime and longevity.
-        </p>
-      </section>
+    <div className="py-12 space-y-20 relative z-10 overflow-hidden">
+      {/* Background Ambient Glow */}
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.35, 0.15] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-emerald-500/15 rounded-full blur-[140px] pointer-events-none"
+      />
 
-      {/* Filter and Search Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
-          {/* Category Tabs */}
+      {/* Header Banner */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4"
+      >
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+          <Layers className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Integrated Property Service Catalog</span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight">
+          Our Comprehensive <span className="text-gradient-emerald">Service Portfolio</span>
+        </h1>
+        <p className="text-emerald-100/70 text-sm sm:text-base max-w-3xl mx-auto">
+          From preventive electromechanical engineering to 24/7 emergency dispatch, soft sanitation, and structured AMC contracts, Amaze PMS maximizes property performance.
+        </p>
+      </motion.section>
+
+      {/* Category Filter and Search Bar */}
+      <motion.section
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl glass-card border border-emerald-500/25 shadow-xl">
+          {/* Category Tabs with Framer Spring Pill */}
           <div className="flex flex-wrap items-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold transition cursor-pointer ${
-                  activeCategory === cat
-                    ? "bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20"
-                    : "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className="relative px-4 py-2 rounded-xl text-xs font-semibold transition cursor-pointer"
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="servicesTabPill"
+                      className="absolute inset-0 bg-emerald-400 text-slate-950 rounded-xl shadow-md shadow-emerald-400/30"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className={`relative z-10 ${isActive ? "text-slate-950 font-bold" : "text-emerald-100/80 hover:text-white"}`}>
+                    {cat}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Search Input */}
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-emerald-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search service keyword..."
+              placeholder="Search service title..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+              className="w-full bg-emerald-950/80 border border-emerald-500/20 rounded-xl pl-10 pr-4 py-2 text-xs text-emerald-100 focus:outline-none focus:border-emerald-400"
             />
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Services Grid */}
+      {/* Services Grid with AnimatePresence */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredServices.map((srv) => {
-            const IconComp = srv.icon;
-            return (
-              <div
-                key={srv.id}
-                className="glass-card p-6 rounded-2xl flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1"
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className={`w-12 h-12 rounded-xl ${srv.bgColor} border ${srv.borderColor} flex items-center justify-center ${srv.color}`}>
-                      <IconComp className="w-6 h-6" />
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence>
+            {filteredServices.map((srv) => {
+              const IconComp = srv.icon;
+              return (
+                <motion.div
+                  key={srv.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                  whileHover={{ y: -8, borderColor: "rgba(52, 211, 153, 0.5)" }}
+                  className="glass-card p-6 rounded-2xl flex flex-col justify-between transition-all group border border-emerald-500/20 shadow-xl"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <motion.div
+                        whileHover={{ rotate: 15, scale: 1.1 }}
+                        className={`w-12 h-12 rounded-xl ${srv.bgColor} border ${srv.borderColor} flex items-center justify-center ${srv.color}`}
+                      >
+                        <IconComp className="w-6 h-6" />
+                      </motion.div>
+                      <span className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-950/80 text-emerald-400 font-mono font-bold border border-emerald-500/20">
+                        {srv.sla}
+                      </span>
                     </div>
-                    <span className="text-[11px] px-2.5 py-1 rounded-full bg-slate-800 text-cyan-400 font-mono font-medium">
-                      {srv.sla}
-                    </span>
+
+                    <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition">
+                      {srv.title}
+                    </h3>
+
+                    <p className="text-emerald-100/70 text-xs leading-relaxed">
+                      {srv.description}
+                    </p>
+
+                    <div className="pt-2 border-t border-emerald-500/15">
+                      <div className="text-[11px] font-semibold text-white uppercase tracking-wider mb-2">
+                        Key Scope Deliverables:
+                      </div>
+                      <ul className="space-y-1.5 text-xs text-emerald-100/80">
+                        {srv.features.map((feat, i) => (
+                          <li key={i} className="flex items-center space-x-2">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition">
-                    {srv.title}
-                  </h3>
-
-                  <p className="text-slate-400 text-xs leading-relaxed">
-                    {srv.description}
-                  </p>
-
-                  <div className="pt-2 border-t border-slate-800/80">
-                    <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                      Key Deliverables:
-                    </div>
-                    <ul className="space-y-1.5 text-xs text-slate-400">
-                      {srv.features.map((feat, i) => (
-                        <li key={i} className="flex items-center space-x-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="pt-6 mt-6 border-t border-emerald-500/15 flex items-center justify-between">
+                    <span className="text-xs text-emerald-400/60 font-medium">{srv.category}</span>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => openModal(srv.title)}
+                      className="px-4 py-2 rounded-xl bg-emerald-400 text-slate-950 text-xs font-bold transition cursor-pointer shadow-md"
+                    >
+                      Request Service
+                    </motion.button>
                   </div>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
-                  <span className="text-xs text-slate-500 font-medium">{srv.category}</span>
-                  <button
-                    onClick={() => openModal(srv.title)}
-                    className="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition cursor-pointer"
-                  >
-                    Request Service
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
       </section>
 
-      {/* AMC Maintenance Package Plans */}
+      {/* AMC MAINTENANCE PLANS MATRIX */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="text-xs font-bold uppercase tracking-widest text-cyan-400">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16 space-y-3"
+        >
+          <div className="text-xs font-bold uppercase tracking-widest text-emerald-400">
             Annual Maintenance Contracts (AMC)
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Structured AMC Packages for Every Property
+            Structured AMC Plans for Every Facility
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base">
-            Choose a fixed annual maintenance contract with SLA guarantees, preventive inspections, and transparent pricing.
+          <p className="text-emerald-100/70 text-sm sm:text-base">
+            Fixed annual maintenance packages with guaranteed SLA response times, preventive maintenance visits, and complete cost predictability.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {amcPlans.map((plan) => (
-            <div
+          {amcPlans.map((plan, idx) => (
+            <motion.div
               key={plan.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ y: -6 }}
               className={`rounded-3xl p-8 flex flex-col justify-between relative transition ${
                 plan.popular
-                  ? "bg-slate-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/10"
-                  : "bg-slate-900/60 border border-slate-800"
+                  ? "glass-card border-2 border-emerald-400 shadow-2xl shadow-emerald-500/20"
+                  : "glass-card border border-emerald-500/20"
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-cyan-500 text-slate-950 text-xs font-black uppercase tracking-wider">
-                  Recommended
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider shadow-md">
+                  Recommended Plan
                 </div>
               )}
 
               <div className="space-y-6">
                 <div>
-                  <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
                     {plan.badge}
                   </span>
                   <h3 className="text-2xl font-bold text-white mt-1">{plan.name}</h3>
-                  <p className="text-slate-400 text-xs mt-2 leading-relaxed">{plan.description}</p>
+                  <p className="text-emerald-100/70 text-xs mt-2 leading-relaxed">{plan.description}</p>
                 </div>
 
-                <div className="border-t border-slate-800 pt-4">
-                  <div className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3">
-                    Plan Highlights:
+                <div className="border-t border-emerald-500/20 pt-4">
+                  <div className="text-xs font-semibold text-white uppercase tracking-wider mb-3">
+                    Contract Deliverables:
                   </div>
-                  <ul className="space-y-3 text-xs text-slate-300">
-                    {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-center space-x-2.5">
-                        <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <ul className="space-y-3 text-xs text-emerald-100/90">
+                    {plan.features.map((feat, i) => (
+                      <li key={i} className="flex items-center space-x-2.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -355,24 +399,26 @@ export default function Services() {
                 </div>
               </div>
 
-              <div className="pt-8 mt-6 border-t border-slate-800">
-                <button
+              <div className="pt-8 mt-6 border-t border-emerald-500/20">
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                   onClick={() => openModal(`AMC Contract - ${plan.name}`)}
                   className={`w-full py-3 rounded-xl font-bold text-xs transition cursor-pointer ${
                     plan.popular
-                      ? "bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
-                      : "bg-slate-800 hover:bg-slate-700 text-white"
+                      ? "bg-emerald-400 text-slate-950 hover:bg-emerald-300 shadow-lg shadow-emerald-400/25"
+                      : "bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/30 text-white"
                   }`}
                 >
                   Request AMC Proposal
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Modal Integration */}
+      {/* Service Modal */}
       <ServiceModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

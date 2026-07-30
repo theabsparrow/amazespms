@@ -11,7 +11,6 @@ import {
   CheckCircle,
   HelpCircle,
   ChevronDown,
-  ShieldCheck,
   Sparkles,
 } from "lucide-react";
 
@@ -52,10 +51,10 @@ export default function ContactSection() {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
         className="text-center max-w-3xl mx-auto space-y-3"
       >
         <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
@@ -74,21 +73,26 @@ export default function ContactSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Interactive Contact Form */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="lg:col-span-7 glass-card p-6 sm:p-8 rounded-3xl border border-emerald-500/25 relative overflow-hidden"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="lg:col-span-7 glass-card p-6 sm:p-8 rounded-3xl border border-emerald-500/25 relative overflow-hidden shadow-2xl"
         >
           {submitted ? (
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
               className="py-12 text-center space-y-4"
             >
-              <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
+              <motion.div
+                animate={{ scale: [1, 1.15, 1] }}
+                transition={{ duration: 0.6 }}
+                className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40"
+              >
                 <CheckCircle className="w-10 h-10" />
-              </div>
+              </motion.div>
               <h3 className="text-2xl font-bold text-white">Ticket Successfully Dispatched!</h3>
               <p className="text-emerald-100/80 text-xs sm:text-sm max-w-md mx-auto">
                 Thank you, <strong className="text-emerald-300">{formData.name || "Valued Client"}</strong>. Ticket #APMS-{Math.floor(100000 + Math.random() * 900000)} has been assigned to our nearest mobile technical unit.
@@ -183,27 +187,32 @@ export default function ContactSection() {
                 />
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs shadow-lg hover:shadow-emerald-500/30 transition flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <span>Submit & Dispatch Request</span>
                 <Send className="w-4 h-4" />
-              </button>
+              </motion.button>
             </form>
           )}
         </motion.div>
 
         {/* Right Column: Contact Details & FAQ Accordion */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
+          initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="lg:col-span-5 space-y-6"
         >
-          {/* Emergency Box */}
-          <div className="glass-card p-6 rounded-3xl border border-emerald-500/25 space-y-4">
+          {/* Emergency Hotline Box */}
+          <motion.div
+            whileHover={{ y: -3 }}
+            className="glass-card p-6 rounded-3xl border border-emerald-500/25 space-y-4 shadow-xl"
+          >
             <div className="flex items-center space-x-3">
               <div className="p-3 rounded-xl bg-emerald-500/15 text-emerald-400">
                 <PhoneCall className="w-6 h-6" />
@@ -230,10 +239,10 @@ export default function ContactSection() {
                 <span>Command Operations: 24 Hours / 365 Days</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick FAQ Accordion */}
-          <div className="glass-card p-6 rounded-3xl border border-emerald-500/25 space-y-4">
+          <div className="glass-card p-6 rounded-3xl border border-emerald-500/25 space-y-4 shadow-xl">
             <div className="flex items-center space-x-2 text-xs font-bold text-white uppercase tracking-wider border-b border-emerald-500/15 pb-3">
               <HelpCircle className="w-4 h-4 text-emerald-400" />
               <span>Frequently Asked Questions</span>

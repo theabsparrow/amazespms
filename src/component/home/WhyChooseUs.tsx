@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Activity,
@@ -89,16 +88,14 @@ const comparisonData = [
 ];
 
 export default function WhyChooseUs() {
-  const [activeComparison, setActiveComparison] = useState(true);
-
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
         className="text-center max-w-3xl mx-auto space-y-3"
       >
         <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
@@ -113,25 +110,28 @@ export default function WhyChooseUs() {
         </p>
       </motion.div>
 
-      {/* 6 Feature Cards Grid */}
+      {/* 6 Feature Cards Grid with Staggered Diagonal Animation */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {features.map((feat, idx) => {
           const Icon = feat.icon;
           return (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30, y: 20 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              whileHover={{ y: -6, borderColor: "rgba(52, 211, 153, 0.45)" }}
-              className="glass-card p-6 rounded-2xl border border-emerald-500/20 flex flex-col justify-between transition-all group"
+              whileHover={{ y: -8, scale: 1.02, borderColor: "rgba(52, 211, 153, 0.5)" }}
+              className="glass-card p-6 rounded-2xl border border-emerald-500/20 flex flex-col justify-between transition-all group shadow-lg"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition">
+                  <motion.div
+                    whileHover={{ rotate: 15, scale: 1.1 }}
+                    className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400"
+                  >
                     <Icon className="w-6 h-6" />
-                  </div>
+                  </motion.div>
                   <div className="text-right">
                     <div className="text-xl font-black text-emerald-400 font-mono">{feat.stat}</div>
                     <div className="text-[10px] text-emerald-200/60 uppercase tracking-wider">{feat.statLabel}</div>
@@ -156,13 +156,13 @@ export default function WhyChooseUs() {
         })}
       </div>
 
-      {/* INTERACTIVE COMPARISON MATRIX */}
+      {/* INTERACTIVE COMPARISON MATRIX WITH ANIMATED SCROLL ROWS */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="glass-card rounded-3xl p-6 sm:p-8 border border-emerald-500/25 space-y-6"
+        className="glass-card rounded-3xl p-6 sm:p-8 border border-emerald-500/25 space-y-6 shadow-2xl"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-emerald-500/20 pb-4">
           <div>
@@ -190,7 +190,14 @@ export default function WhyChooseUs() {
             </thead>
             <tbody className="divide-y divide-emerald-500/15">
               {comparisonData.map((row, i) => (
-                <tr key={i} className="hover:bg-emerald-950/30 transition">
+                <motion.tr
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="hover:bg-emerald-950/40 transition"
+                >
                   <td className="py-3.5 px-2 font-bold text-white">{row.feature}</td>
                   <td className="py-3.5 px-2 text-slate-400 flex items-center space-x-1.5">
                     <XCircle className="w-4 h-4 text-rose-500/80 shrink-0" />
@@ -200,7 +207,7 @@ export default function WhyChooseUs() {
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>{row.amaze}</span>
                   </td>
-                </tr>
+                </motion.tr>
               ))}
             </tbody>
           </table>

@@ -5,16 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ShieldCheck,
   Award,
-  Users,
   Target,
   Eye,
   CheckCircle2,
-  TrendingUp,
-  Cpu,
-  Clock,
   ArrowRight,
   Sparkles,
-  Building2,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -73,10 +68,10 @@ export default function AboutUsSection() {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-6">
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
         className="text-center max-w-3xl mx-auto mb-14 space-y-3"
       >
         <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
@@ -107,26 +102,31 @@ export default function AboutUsSection() {
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between cursor-pointer ${
-                      isActive
-                        ? "bg-emerald-950/90 border-emerald-400 text-white shadow-lg shadow-emerald-500/20"
-                        : "bg-emerald-950/30 border-emerald-500/15 text-emerald-200/70 hover:bg-emerald-950/60 hover:text-white"
-                    }`}
+                    className="relative w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between cursor-pointer overflow-hidden"
                   >
-                    <div className="flex items-center space-x-3.5">
+                    {isActive && (
+                      <motion.div
+                        layoutId="aboutUsTabActive"
+                        className="absolute inset-0 bg-emerald-950/90 border-2 border-emerald-400 rounded-2xl shadow-lg shadow-emerald-500/20"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                    <div className="relative z-10 flex items-center space-x-3.5">
                       <div
                         className={`w-10 h-10 rounded-xl flex items-center justify-center transition ${
                           isActive
-                            ? "bg-emerald-400 text-slate-950 font-bold"
+                            ? "bg-emerald-400 text-slate-950 font-bold shadow-md"
                             : "bg-emerald-500/10 text-emerald-400"
                         }`}
                       >
                         <Icon className="w-5 h-5" />
                       </div>
-                      <span className="font-bold text-sm">{item.label}</span>
+                      <span className={`font-bold text-sm ${isActive ? "text-white" : "text-emerald-200/70"}`}>
+                        {item.label}
+                      </span>
                     </div>
                     <ArrowRight
-                      className={`w-4 h-4 transition-transform ${
+                      className={`relative z-10 w-4 h-4 transition-transform ${
                         isActive ? "translate-x-1 text-emerald-400" : "text-emerald-500/40"
                       }`}
                     />
@@ -148,19 +148,24 @@ export default function AboutUsSection() {
           </div>
         </div>
 
-        {/* Right Column: Dynamic Content Box */}
+        {/* Right Column: Dynamic Content Box with AnimatePresence */}
         <div className="lg:col-span-7">
-          <div className="glass-card rounded-3xl p-6 sm:p-8 border border-emerald-500/25 h-full flex flex-col justify-between relative overflow-hidden">
-            {/* Background Glow */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="glass-card rounded-3xl p-6 sm:p-8 border border-emerald-500/25 h-full flex flex-col justify-between relative overflow-hidden shadow-xl"
+          >
             <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPillar.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.35 }}
+                initial={{ opacity: 0, x: 25, filter: "blur(2px)" }}
+                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, x: -25, filter: "blur(2px)" }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
                 className="space-y-6 relative z-10"
               >
                 <div className="flex items-center space-x-3">
@@ -187,10 +192,16 @@ export default function AboutUsSection() {
                   </div>
                   <ul className="space-y-2.5 text-xs text-emerald-100/90">
                     {currentPillar.highlights.map((point, idx) => (
-                      <li key={idx} className="flex items-center space-x-3">
+                      <motion.li
+                        key={idx}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.08 }}
+                        className="flex items-center space-x-3"
+                      >
                         <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                         <span>{point}</span>
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
                 </div>
@@ -208,22 +219,20 @@ export default function AboutUsSection() {
                 <span>ISO 45001 Occupational Safety Certified</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* STATS COUNTER GRID WITH FRAMER MOTION ANIMATION */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
-      >
+      {/* STATS COUNTER GRID WITH STAGGERED REVEAL & SPRING HOVER */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((st, idx) => (
           <motion.div
             key={idx}
-            whileHover={{ y: -4, borderColor: "rgba(52, 211, 153, 0.5)" }}
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            whileHover={{ y: -6, scale: 1.03, borderColor: "rgba(52, 211, 153, 0.5)" }}
             className="glass-card p-6 rounded-2xl border border-emerald-500/20 text-center space-y-1 transition-all"
           >
             <div className="text-3xl sm:text-4xl font-black text-emerald-400 font-mono">
@@ -234,7 +243,7 @@ export default function AboutUsSection() {
             </div>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }
