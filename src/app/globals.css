@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-dark: #040d0a;
+    --bg-surface: #071712;
+    --primary-emerald: #10b981;
+    --accent-mint: #34d399;
+    --accent-teal: #0d9488;
+    --glass-border: rgba(16, 185, 129, 0.15);
+    --glass-border-hover: rgba(52, 211, 153, 0.45);
+    --glass-bg: rgba(6, 20, 16, 0.75);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: #f0fdf4;
+    font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    position: relative;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Emerald/Jade Organic Mesh Background Structure */
+.bg-robust-emerald {
+  background-color: #040d0a;
+  background-image: 
+    radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.18) 0px, transparent 55%),
+    radial-gradient(at 90% 15%, rgba(13, 148, 136, 0.22) 0px, transparent 55%),
+    radial-gradient(at 50% 85%, rgba(52, 211, 153, 0.12) 0px, transparent 60%),
+    radial-gradient(at 80% 80%, rgba(6, 78, 59, 0.3) 0px, transparent 50%),
+    linear-gradient(to right, rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 56px 56px, 56px 56px;
+}
+
+/* Glassmorphism Styling for Emerald Theme */
+.glass-nav {
+  background: rgba(4, 13, 10, 0.78);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+  box-shadow: 0 10px 30px -10px rgba(4, 13, 10, 0.8);
+}
+
+.glass-card {
+  background: rgba(7, 23, 18, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-card:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow: 0 12px 40px -10px rgba(16, 185, 129, 0.3);
+}
+
+.glass-footer {
+  background: rgba(3, 9, 7, 0.88);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-top: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #6ee7b7 0%, #10b981 50%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-emerald {
+  box-shadow: 0 0 35px rgba(16, 185, 129, 0.35);
+}
+
+/* Glassmorphism Custom Scrollbar matching Emerald Theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(4, 13, 10, 0.95);
+  border-left: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.5) 0%, rgba(13, 148, 136, 0.6) 100%);
+  border-radius: 9999px;
+  border: 2px solid rgba(4, 13, 10, 0.8);
+  box-shadow: inset 0 0 6px rgba(52, 211, 153, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.8) 0%, rgba(16, 185, 129, 0.9) 100%);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
 }
