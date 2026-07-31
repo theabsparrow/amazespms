@@ -184,7 +184,7 @@ export default function ServiceModal({ isOpen, onClose, defaultService = "HVAC &
 
               <button
                 type="submit"
-                className="flex items-center space-x-2 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-medium rounded-xl shadow-lg hover:shadow-cyan-500/25 transition cursor-pointer"
+                className="flex items-center space-x-2 px-6 py-2.5 bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-medium rounded-xl shadow-lg hover:shadow-cyan-500/25 transition cursor-pointer"
               >
                 <span>Submit & Dispatch</span>
                 <Send className="w-4 h-4" />

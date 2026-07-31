@@ -17,15 +17,18 @@ import {
 const faqs = [
   {
     question: "What is your emergency SLA response time guarantee?",
-    answer: "Our mobile technical dispatch units arrive on-site in under 15 minutes for critical emergencies (power outages, severe pipe bursts, chiller failures) within our primary coverage zones.",
+    answer:
+      "Our mobile technical dispatch units arrive on-site in under 15 minutes for critical emergencies (power outages, severe pipe bursts, chiller failures) within our primary coverage zones.",
   },
   {
     question: "Do you offer tailored Annual Maintenance Contracts (AMC)?",
-    answer: "Yes, we offer Silver Essential, Gold Enterprise, and Platinum Premier AMC contracts customized to your facility size, equipment inventory, and operational budget.",
+    answer:
+      "Yes, we offer Silver Essential, Gold Enterprise, and Platinum Premier AMC contracts customized to your facility size, equipment inventory, and operational budget.",
   },
   {
     question: "Are your technicians and engineers certified?",
-    answer: "100% of our engineering workforce is in-house certified, background-verified, and regularly audited under ISO 9001 and ISO 45001 safety guidelines.",
+    answer:
+      "100% of our engineering workforce is in-house certified, background-verified, and regularly audited under ISO 9001 and ISO 45001 safety guidelines.",
   },
 ];
 
@@ -62,10 +65,12 @@ export default function ContactSection() {
           <span>24/7 Command Dispatch</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
-          Get In Touch & <span className="text-gradient-emerald">Request Service</span>
+          Get In Touch &{" "}
+          <span className="text-gradient-emerald">Request Service</span>
         </h2>
         <p className="text-emerald-100/70 text-sm sm:text-base">
-          Our dispatch command desk is active right now. Connect with a senior property manager or submit an urgent service request.
+          Our dispatch command desk is active right now. Connect with a senior
+          property manager or submit an urgent service request.
         </p>
       </motion.div>
 
@@ -93,14 +98,30 @@ export default function ContactSection() {
               >
                 <CheckCircle className="w-10 h-10" />
               </motion.div>
-              <h3 className="text-2xl font-bold text-white">Ticket Successfully Dispatched!</h3>
+              <h3 className="text-2xl font-bold text-white">
+                Ticket Successfully Dispatched!
+              </h3>
               <p className="text-emerald-100/80 text-xs sm:text-sm max-w-md mx-auto">
-                Thank you, <strong className="text-emerald-300">{formData.name || "Valued Client"}</strong>. Ticket #APMS-{Math.floor(100000 + Math.random() * 900000)} has been assigned to our nearest mobile technical unit.
+                Thank you,{" "}
+                <strong className="text-emerald-300">
+                  {formData.name || "Valued Client"}
+                </strong>
+                . Ticket #APMS-{Math.floor(100000 + Math.random() * 900000)} has
+                been assigned to our nearest mobile technical unit.
               </p>
               <div className="p-4 bg-emerald-950/80 rounded-xl max-w-md mx-auto text-left text-xs space-y-1.5 border border-emerald-500/20 font-mono">
-                <p className="text-emerald-200"><strong className="text-white">Service:</strong> {formData.service}</p>
-                <p className="text-emerald-200"><strong className="text-white">Priority SLA:</strong> {formData.urgency}</p>
-                <p className="text-emerald-200"><strong className="text-white">Est. Arrival:</strong> &lt; 15 Mins</p>
+                <p className="text-emerald-200">
+                  <strong className="text-white">Service:</strong>{" "}
+                  {formData.service}
+                </p>
+                <p className="text-emerald-200">
+                  <strong className="text-white">Priority SLA:</strong>{" "}
+                  {formData.urgency}
+                </p>
+                <p className="text-emerald-200">
+                  <strong className="text-white">Est. Arrival:</strong> &lt; 15
+                  Mins
+                </p>
               </div>
               <button
                 onClick={() => setSubmitted(false)}
@@ -121,7 +142,9 @@ export default function ContactSection() {
                     required
                     placeholder="John Doe"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     className="w-full bg-emerald-950/80 border border-emerald-500/20 rounded-xl px-3.5 py-2.5 text-xs text-emerald-100 focus:outline-none focus:border-emerald-400"
                   />
                 </div>
@@ -134,7 +157,9 @@ export default function ContactSection() {
                     required
                     placeholder="john@company.com"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     className="w-full bg-emerald-950/80 border border-emerald-500/20 rounded-xl px-3.5 py-2.5 text-xs text-emerald-100 focus:outline-none focus:border-emerald-400"
                   />
                 </div>
@@ -150,7 +175,9 @@ export default function ContactSection() {
                     required
                     placeholder="+1 (555) 019-2834"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
                     className="w-full bg-emerald-950/80 border border-emerald-500/20 rounded-xl px-3.5 py-2.5 text-xs text-emerald-100 focus:outline-none focus:border-emerald-400"
                   />
                 </div>
@@ -161,7 +188,9 @@ export default function ContactSection() {
                   </label>
                   <select
                     value={formData.service}
-                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, service: e.target.value })
+                    }
                     className="w-full bg-emerald-950/80 border border-emerald-500/20 rounded-xl px-3.5 py-2.5 text-xs text-emerald-100 focus:outline-none focus:border-emerald-400"
                   >
                     <option>HVAC & Climate Control</option>
@@ -182,7 +211,9 @@ export default function ContactSection() {
                   rows={4}
                   placeholder="Describe your property needs, square footage, or urgency level..."
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                   className="w-full bg-emerald-950/80 border border-emerald-500/20 rounded-xl px-3.5 py-2.5 text-xs text-emerald-100 focus:outline-none focus:border-emerald-400 resize-none"
                 />
               </div>
@@ -191,7 +222,7 @@ export default function ContactSection() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs shadow-lg hover:shadow-emerald-500/30 transition flex items-center justify-center space-x-2 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-linear-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs shadow-lg hover:shadow-emerald-500/30 transition flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <span>Submit & Dispatch Request</span>
                 <Send className="w-4 h-4" />
@@ -221,7 +252,9 @@ export default function ContactSection() {
                 <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
                   24/7 Rapid Hotline
                 </div>
-                <div className="text-xl font-black text-white font-mono">+1 (800) 555-AMAZE</div>
+                <div className="text-xl font-black text-white font-mono">
+                  +1 (800) 555-AMAZE
+                </div>
               </div>
             </div>
 
