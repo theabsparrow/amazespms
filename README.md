@@ -4,6 +4,10 @@ A high-performance, modern redesign for **Amaze PMS** ([amazepms.com](https://ww
 
 This web platform showcases end-to-end property & service management capabilities including 24/7 technical command dispatch, IoT electromechanical telemetry, HVAC engineering, janitorial soft services, annual maintenance contract (AMC) packages, and technical workforce recruitment.
 
+## Live Url: https://amazepms-six.vercel.app
+
+## Github repository: https://github.com/theabsparrow/amazespms
+
 ---
 
 ## 🌟 Key Features & Innovations
